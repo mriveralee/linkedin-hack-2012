@@ -19,8 +19,6 @@ TDM.ChatView = Backbone.View.extend({
     });
   }
 
-
-
   });
 
 

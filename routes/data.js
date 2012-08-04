@@ -58,7 +58,7 @@ function getVideoData(req, res){
   var videoID = req.param('id');
   console.log("Video ID" + videoID);
   var data = {
-    name: 'bob',
+    videoName: 'bob',
     description: 'THIS IS THE BEST EFFIN VIDEO EVAAAAAAA, YEAH GURRRL',
     ownerID: 'BOB the BuildAA'
   };
