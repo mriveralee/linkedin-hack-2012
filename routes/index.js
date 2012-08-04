@@ -42,8 +42,6 @@ function playlist(req, res){
     }
   };
 
-
-  var testResult;
   function resultOnEnd(body){
     var tempJson = JSON.parse(body).feed.entry;
     var data = {};
@@ -59,6 +57,50 @@ function playlist(req, res){
   //initial request
   makeRequest(options, resultOnEnd);
 }
+
+function getPlaylistData(req, res){
+  var playlistID = req.param('id');
+  console.log("Playlist ID" + playlistID);
+  var url = 'http://gdata.youtube.com/feeds/api/playlists/' + playlistID + '?v=2&alt=json';
+
+  var options = {
+    host: 'gdata.youtube.com',
+    port: 80,
+    path: url,
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer ' + token,
+    }
+  };
+
+  var resultOnEnd = function(body){
+    console.log('in here yo');
+    var tempJson = JSON.parse(body).feed;
+    returnVal = {};
+    returnVal.playlistName = tempJson.title.$t 
+    var videos = [];
+
+    tempJson = tempJson.entry;
+    for(index in tempJson){
+      var item = tempJson[index];
+      var mediaGroup = item.media$group;
+      var temp = {};
+      temp['title'] = mediaGroup.media$title.$t;
+      temp['videoURL'] = item.content.src;
+      temp['description'] = mediaGroup.media$description.$t;
+      temp['thumbnailURL'] = mediaGroup.media$thumbnail[0].url;
+      videos.push(temp);
+    }   
+    returnVal.videos = videos;
+    console.log(videos);
+    console.log(returnVal)
+    res.json(returnVal);
+  }
+  console.log('hiii');
+  makeRequest(options, resultOnEnd);
+}
+
+//resultOnEnd(body) - body is the json returned
 
 function makeRequest(options, resultOnEnd){
   var returnVal;
@@ -99,6 +141,7 @@ function makeRequest(options, resultOnEnd){
 app.get('/', index);
 app.get('/login', login);
 app.get('/playlists', playlist);
+app.get('/playlist/:id', getPlaylistData);
 app.get('/auth/google'
         , passport.authenticate('google'
             , { scope: ['https://www.googleapis.com/auth/userinfo.profile',
