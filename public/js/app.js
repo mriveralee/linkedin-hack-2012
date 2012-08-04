@@ -67,7 +67,7 @@ TDM.AppView = Backbone.View.extend({
    if (APPDATA.USER_PLAYLISTS) {
      this.playlist = APPDATA.USER_PLAYLISTS;
    }
-
+   this.render();
    },
 
   render: function() {
@@ -93,11 +93,20 @@ TDM.AppView = Backbone.View.extend({
 
    }
 
+      this.currentVideo = { id: "foo" };
+
+
     if (this.currentVideo) {
       // Make video model
 
+        var currentVideoModel = new TDM.Video({ id: this.currentVideo.id });
+        currentVideoModel.fetch();
+        var currentVideoView = new TDM.VideoView({ model: currentVideoModel });
+
+
       // set render in VideoView
     }
+
 
    if (this.currentUser) {
      // Make currentUser model

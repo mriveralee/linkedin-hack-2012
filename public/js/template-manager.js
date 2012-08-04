@@ -14,11 +14,11 @@ TDM = {};
 TDM.templates = {
 	// Names of templates
     'chat_message_item': 'chat-message-item.html',
-	'video': 'video.html',
+	'video': 'video.html'
 
 
 	//Add more
-	'name': 'file.html'	
+	//'name': 'file.html'
 };
 
 
@@ -26,10 +26,6 @@ TDM.templates = {
 TDM.templateManager = {
   'directory': '/templates/',
   'savedTemplates': {},
-
-  //App template names
-  'chatMessageItem': 'chat-message-item.html',  	// was chat_message_item for name
-
 
   'getURLFor': function(template) {
     return this.directory+template;
