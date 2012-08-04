@@ -153,11 +153,14 @@ a.header-link {
 
 #playlist-view-container {
     position: absolute;
-    /*top: 175px;*/
     width: 250px;
     border: 3px solid black;
     -moz-border-radius: 6px;
     border-radius: 6px;
     -moz-box-shadow: 0 3px 10px #888888;
     box-shadow: 0 3px 10px #888888;
+}
+
+.video-text {
+    vertical-align: top;
 }
