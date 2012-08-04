@@ -161,6 +161,6 @@ a.header-link {
     box-shadow: 0 3px 10px #888888;
 }
 
-.video-text {
-    vertical-align: top;
+.video-list-item img {
+    vertical-align: middle;
 }
