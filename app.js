@@ -239,3 +239,4 @@ module.exports.appServer = appServer;
 //module.exports.io = io;
 
 var indexRoutes = require('./routes/index');
+var roomRoutes = require('./routes/room');
