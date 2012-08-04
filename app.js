@@ -3,16 +3,21 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , http = require('http')
-  , app = express()
-  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
-  , passport = require('passport')
-  , sqlite3 = require('sqlite3').verbose()
-  , db = new sqlite3.Database('db/linkedin.db');
+var express = require('express');
+var http = require('http');
+var app = express();
+var util = require('util');
+/***************************LEAVE IN THIS ORDER *****************************/
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('db/linkedin.db');
 
+console.log('DB:' + JSON.stringify(db));
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var passport = require('passport');
 module.exports.server = app;
-module.exports.db = db;
+
+
+/****************************************************************************/
 
 CONST = {
   developer_key : 'AI39si4gv_2PveEdcwyyPnqk5QFK83gp5TpnxHFzOOGexfnsL03lcXU3IvyGZcU9H1BoTYpGUAiIIdn7DF7UGoDHZI5zGlL2fQ',
@@ -25,16 +30,22 @@ module.exports.CONST = CONST;
 module.exports.token = '';
 
 
-function createDB(){
-  db.serialize(function() {
-    db.run("DROP TABLE IF EXISTS messages");
-    db.run("DROP TABLE IF EXISTS users");
-    db.run("DROP TABLE IF EXISTS rooms");
-    db.run("DROP TABLE IF EXISTS videos");
-    db.run("DROP TABLE IF EXISTS playlists");
 
-    //store rooms in csv or json
-    db.run("CREATE TABLE users(user_id INTEGER PRIMARY KEY AUTOINCREMENT, \
+//console.log("database" + db);
+
+
+
+function createDB(){
+    db.serialize(function() {
+
+        db.run("DROP TABLE IF EXISTS messages");
+        db.run("DROP TABLE IF EXISTS users");
+        db.run("DROP TABLE IF EXISTS rooms");
+        db.run("DROP TABLE IF EXISTS videos");
+        db.run("DROP TABLE IF EXISTS playlists");
+
+        //store rooms in csv or json
+        db.run("CREATE TABLE users(user_id INTEGER PRIMARY KEY AUTOINCREMENT, \
                                name TEXT, \
                                rooms TEXT, \
                                created_date INTEGER, \
@@ -48,24 +59,25 @@ function createDB(){
                               messages TEXT, \
                               playlist TEXT)");
 
-    db.run("CREATE TABLE videos(video_id INTEGER PRIMARY KEY, \
+        db.run("CREATE TABLE videos(video_id INTEGER PRIMARY KEY, \
                               videoName TEXT, \
                               description TEXT, \
                               owner_id INTEGER \
                               )");
-    //store videos in csv or json
-    db.run("CREATE TABLE playlists(playlist_id INTEGER PRIMARY KEY, \
+        //store videos in csv or json
+        db.run("CREATE TABLE playlists(playlist_id INTEGER PRIMARY KEY, \
                                    playlistName TEXT, \
                                    videos TEXT)")
-    // chat messages table
-    db.run("CREATE TABLE messages(message_id INTEGER PRIMARY KEY, \
+        // chat messages table
+        db.run("CREATE TABLE messages(message_id INTEGER PRIMARY KEY, \
                                    create_date INTEGER, \
                                    user TEXT, \
                                    room TEXT, \
                                    message TEXT)");
 
-  });
+    });
 }
+
 
 
 app.configure(function(){
@@ -74,6 +86,7 @@ app.configure(function(){
   app.set('view engine', 'ejs');
   app.use(passport.initialize());
   app.use(passport.session());
+    app.use(app.router);
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -81,15 +94,17 @@ app.configure(function(){
   app.use(express.cookieParser('heyGirlHay'));
   app.use(express.session({ secret:'supGURLHowYouDoin' }));
   app.use(express.static(__dirname + '/public'));
+  //var DATABASE = db;
   createDB();
+  //  console.log('DB:' + JSON.stringify(db));
 });
 
+
+var dataRoutes = require('./routes/data');
 
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
-
-var routes = require('./routes/index');
 
 //passport oauth
 passport.use(new GoogleStrategy({
@@ -124,6 +139,13 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
+
+
+
+
+
+
+
 
 
 // Use the GoogleStrategy within Passport.
@@ -172,3 +194,5 @@ passport.use(new GoogleStrategy({
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+var indexRoutes = require('./routes/index');

@@ -37,7 +37,9 @@ function getRoomData(req, res){
   res.json(data);
 };
 
-
+function pk(w,h) {
+    return 'http://www.placekitten.com/' + w + '/' + h;
+}
 
 
 function getPlaylistData(req, res){
@@ -46,7 +48,9 @@ function getPlaylistData(req, res){
   console.log ('PLAYLIST DATA');
   var data = {
     playlistName: 'My Playlist is effin Awwwwwwwh(yeah!)Some',
-    videos: ['video1', 'video2', 'video3']
+    videos: [{videoName: 'video1', description: 'A dumb video', thumbnailURL: pk(75,75)},
+        {videoName: 'video2', description: 'A funny vid', thumbnailURL: pk(75,75)},
+        {videoName: 'video3', description: 'A music vid', thumbnailURL: pk(75,75)}]
   };
 
   res.json(data);

@@ -1,0 +1,9 @@
+<div id="playlist-header">
+    <%= playlistName %>
+</div>
+<div id="playlist-videos-container">
+    <% _.each(videos, function(vid, key) { %>
+        <li><div class="video-icon"><img src="<%=vid.thumbnailURL%>" /></div>
+            <div class="video-text"><b><%=vid.videoName%></b>: <%= vid.description%></div></li>
+    <% })  %>
+</div>

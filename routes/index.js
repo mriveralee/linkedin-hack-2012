@@ -3,12 +3,13 @@
  * GET home page.
  */
 
-
-var app = require('../app').server
+var appFile = require('../app');
+var app = appFile.server
   , passport = require('passport')
-  , http = require('http')
-  , db = require('../app').db;
+  , http = require('http');
 
+var test = appFile.test;
+ console.log(test);
 //console.log(app + 'hi');
 
 function index(req, res){
@@ -30,7 +31,7 @@ function login(req, res){
 
 
 function playlist(req, res){
-  var url = '/feeds/api/users/default/playlists?v=2&alt=json' + 
+  var url = '/feeds/api/users/default/playlists?v=2&alt=json' +
     '&key=' + CONST.developer_key;
 
   var options = {
@@ -39,17 +40,17 @@ function playlist(req, res){
     path: url,
     method: 'GET',
     headers: {
-        'Authorization': 'Bearer ' + token,
+        'Authorization': 'Bearer ' + token
     }
   };
 
   function resultOnEnd(body){
     var tempJson = JSON.parse(body).feed.entry;
     var data = {};
-    for(index in tempJson){
+    for(i in tempJson){
 
       var patt = /playlist:[a-z A-Z 0-9]*/;
-      var tempstring = patt.exec(tempJson[index].id.$t).toString();
+      var tempstring = patt.exec(tempJson[i].id.$t).toString();
       tempstring = tempstring.replace('playlist:', '');
       data[tempJson[index].title.$t] = tempstring;
     }
@@ -70,7 +71,7 @@ function getPlaylistData(req, res){
     path: url,
     method: 'GET',
     headers: {
-        'Authorization': 'Bearer ' + token,
+        'Authorization': 'Bearer ' + token
     }
   };
 
@@ -78,12 +79,12 @@ function getPlaylistData(req, res){
     console.log('in here yo');
     var tempJson = JSON.parse(body).feed;
     returnVal = {};
-    returnVal.playlistName = tempJson.title.$t 
+    returnVal.playlistName = tempJson.title.$t
     var videos = [];
 
     tempJson = tempJson.entry;
-    for(index in tempJson){
-      var item = tempJson[index];
+    for(i in tempJson){
+      var item = tempJson[i];
       var mediaGroup = item.media$group;
       var temp = {};
       temp['title'] = mediaGroup.media$title.$t;
@@ -92,7 +93,7 @@ function getPlaylistData(req, res){
       temp['thumbnailURL'] = mediaGroup.media$thumbnail[0].url;
       temp['videoID'] = mediaGroup.yt$videoid.$t;
       videos.push(temp);
-    }   
+    }
     returnVal.videos = videos;
     console.log(videos);
     console.log(returnVal)
@@ -189,7 +190,7 @@ function makeRequest(options, resultOnEnd){
       body += data
       console.log('chunked')
     });
-    
+
     res.on('end', function(){
       resultOnEnd(body);
 //      console.log(returnVal);
@@ -201,9 +202,9 @@ function makeRequest(options, resultOnEnd){
   req.on('error', function(e) {
     console.log('\n NOOOO THERE WAS AN ERROR MAKING THE REQUEST!!!!!\n')
     console.error(e);
-    
+
   });
-    
+
 
   req.end();
  }
@@ -222,14 +223,14 @@ app.get('/search/:query', searchVideo);
 app.get('/auth/google'
         , passport.authenticate('google'
             , { scope: ['https://www.googleapis.com/auth/userinfo.profile',
-                        'https://www.googleapis.com/auth/userinfo.email',  
+                        'https://www.googleapis.com/auth/userinfo.email',
                         'http://gdata.youtube.com'] })
         , function(req, res){
           // The request will be redirected to Google for authentication, so
           // this function will not be called.
           });
 
-app.get('/auth/google/callback', 
+app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     // Successful authentication, redirect home.
@@ -240,4 +241,8 @@ app.get('/auth/google/callback',
 app.post('/room/new', createRoom);
 
 
-module.exports.index = index;
+
+
+
+//module.exports.index = index;
+// module.exports.createDB = createDB();

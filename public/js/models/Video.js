@@ -10,7 +10,6 @@
 TDM.Video = Backbone.Model.extend({  
     urlRoot: '/video',
 
-
     getVideoName: function() {
         return this.get('videoName');
     },
@@ -21,6 +20,14 @@ TDM.Video = Backbone.Model.extend({
 
     getOwnerID: function() {
         return this.get('ownerID');
+    },
+
+    getVideoURL: function() {
+        return this.get('videoURL');
+    },
+
+    getDateAdded: function() {
+        return this.get('dateAdded');
     }
 
 });
