@@ -4,10 +4,11 @@
  */
 
 $(function() {
-  $('#chat-send-button').buttonset();
+  // TODO: create chat send button
+  // $('#chat-send-button').buttonset();
 
   //DMD user session
-  TDM.User.currentUser = new DMD.User();
+  TDM.User.currentUser = new TDM.User();
   $("#username-input-box").keyup(function() {
    TDM.User.currentUser.setUserName();
    });

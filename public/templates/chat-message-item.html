@@ -1,0 +1,15 @@
+<div class="chat-message-item">
+
+  <div class="chat-message-image-container">
+    <img class="chat-message-image" src="<%=image.url%>" width="<%=image.dimension%>" height="<%=image.dimension%>">
+  </div>
+  <div class="chat-message-details">
+      <div class="chat-user-name"><%= msgData.user%></div>
+       <%= msgData.message %>
+      <br>
+      </div>
+  </div>
+<div class="chat-message-sent-time">
+  <%= msgData.dateString%>
+</div>
+<div class="chat-message-divider"></div>
