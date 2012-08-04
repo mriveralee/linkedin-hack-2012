@@ -45,9 +45,8 @@ a.header-link {
 
 #chat-container {
   position: absolute;
-  width: 300px;
-  height: 800px;
-  border: 1px solid black;
+  width: 270px;
+  height: 290px;
   right: 0px;
   bottom: 0px;
 }
@@ -68,11 +67,39 @@ a.header-link {
   padding-right: 10px;
   position: relative;
   top: -2px;
+  height: 16px;
+}
+
+#chat-user-count {
+  float:right;
+  position: absolute;
+  top: 4px;
+  right: 20px;
+  color: #f5f5f5;
+  font-size: 14px;
+}
+
+#chat-title-container {
+  position: absolute;
+  width: 262px;
+  height: 30px;
+  top: -30px;
+  background-color: #808080;
+
+}
+
+#chat-title {
+  position: absolute;
+  top: 4px;
+  left: 20px;
+  color: #f5f5f5;
+  font-size: 14px;
 }
 
 .chat-message-item {
   margin-left: 4px;
-  width: 100%; }
+  width: 100%;
+}
 
 .chat-message-image {
   margin: 2px 10px 0 0; }

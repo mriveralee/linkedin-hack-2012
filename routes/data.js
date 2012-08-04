@@ -22,7 +22,7 @@ function getUserData(req, res){
 
 
 
-
+/*
 function getRoomData(req, res){
   var roomID = req.param('id');
   console.log("Playlist ID" + roomID);
@@ -36,6 +36,8 @@ function getRoomData(req, res){
 
   res.json(data);
 };
+*/
+
 
 function pk(w,h) {
     return 'http://www.placekitten.com/' + w + '/' + h;
@@ -74,14 +76,14 @@ function getVideoData(req, res){
 
 
 
-app.get('/room/:id', getRoomData);
+//app.get('/room/:id', getRoomData);
 app.get('/playlist/:id', getPlaylistData);
 app.get('/user/:id', getUserData);
 app.get('/video/:id', getVideoData);
 
 
 
-module.exports.room = getRoomData;
+//module.exports.room = getRoomData;
 module.exports.user = getUserData;
 module.exports.playlist = getPlaylistData;
 module.exports.video = getVideoData;

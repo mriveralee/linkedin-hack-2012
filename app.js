@@ -28,7 +28,7 @@ CONST = {
 module.exports.server = app;
 module.exports.CONST = CONST;
 module.exports.token = '';
-
+module.exports.db = db;
 
 var dataRoutes = require('./routes/data');
 
@@ -39,14 +39,15 @@ var dataRoutes = require('./routes/data');
 function createDB(){
     db.serialize(function() {
 
+/*
         db.run("DROP TABLE IF EXISTS messages");
         db.run("DROP TABLE IF EXISTS users");
         db.run("DROP TABLE IF EXISTS rooms");
         db.run("DROP TABLE IF EXISTS videos");
         db.run("DROP TABLE IF EXISTS playlists");
-
+*/
         //store rooms in csv or json
-        db.run("CREATE TABLE users(user_id INTEGER PRIMARY KEY AUTOINCREMENT, \
+        db.run("CREATE TABLE IF NOT EXISTS users(user_id INTEGER PRIMARY KEY AUTOINCREMENT, \
                                name TEXT, \
                                rooms TEXT, \
                                created_date INTEGER, \
@@ -54,23 +55,23 @@ function createDB(){
                                UNIQUE (email))");
 
     //store users, messages in csv or json
-    db.run("CREATE TABLE rooms(room_id INTEGER PRIMARY KEY AUTOINCREMENT, \
+    db.run("CREATE TABLE IF NOT EXISTS rooms(room_id INTEGER PRIMARY KEY AUTOINCREMENT, \
                               roomName TEXT, \
                               users TEXT, \
                               messages TEXT, \
                               playlist TEXT)");
 
-        db.run("CREATE TABLE videos(video_id INTEGER PRIMARY KEY, \
+        db.run("CREATE TABLE IF NOT EXISTS videos(video_id INTEGER PRIMARY KEY, \
                               videoName TEXT, \
                               description TEXT, \
                               owner_id INTEGER \
                               )");
         //store videos in csv or json
-        db.run("CREATE TABLE playlists(playlist_id INTEGER PRIMARY KEY, \
+        db.run("CREATE TABLE IF NOT EXISTS playlists(playlist_id INTEGER PRIMARY KEY, \
                                    playlistName TEXT, \
                                    videos TEXT)")
         // chat messages table
-        db.run("CREATE TABLE messages(message_id INTEGER PRIMARY KEY, \
+        db.run("CREATE TABLE IF NOT EXISTS messages(message_id INTEGER PRIMARY KEY, \
                                    create_date INTEGER, \
                                    user TEXT, \
                                    room TEXT, \
@@ -214,8 +215,13 @@ io.sockets.on('connection', function (socket) {
 //    console.log(r);
 //  });
 
-  //socket.emit("test", {hello:'test'});
+  socket.emit("test", {hello:'test'});
   //console.log("SENT TEST");
+  socket.on('disconnect', function() {
+    io.sockets.emit('user left room');
+  });
+  socket.emit("user entered room");
+
 
   socket.on('chat message', function (data) {
     data.create_date = Math.floor(new Date().getTime() / 1000);
