@@ -28,6 +28,10 @@ TDM.Video = Backbone.Model.extend({
 
     getDateAdded: function() {
         return this.get('dateAdded');
+    },
+
+    getThumbnailURL: function() {
+        return this.get('thumbnailURL');
     }
 
 });

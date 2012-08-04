@@ -50,9 +50,9 @@ function getPlaylistData(req, res){
   console.log ('PLAYLIST DATA');
   var data = {
     playlistName: 'My Playlist is effin Awwwwwwwh(yeah!)Some',
-    videos: [{videoName: 'video1', description: 'A dumb video', thumbnailURL: pk(75,75)},
-        {videoName: 'video2', description: 'A funny vid', thumbnailURL: pk(75,75)},
-        {videoName: 'video3', description: 'A music vid', thumbnailURL: pk(75,75)}]
+    videos: [{videoName: 'video1', thumbnailURL: pk(75,75), videoURL: "http://www.youtube.com/embed/up7L4UcVCOk" },
+        {videoName: 'video2', thumbnailURL: pk(75,75), videoURL: "http://www.youtube.com/embed/IaZMST-vHfM"},
+        {videoName: 'video3',  thumbnailURL: pk(75,75), videoURL: "http://www.youtube.com/embed/qr_L38bwZhU"}]
   };
 
   res.json(data);
@@ -65,8 +65,10 @@ function getVideoData(req, res){
   console.log("Video ID" + videoID);
   var data = {
     videoName: 'bob',
-    description: 'THIS IS THE BEST EFFIN VIDEO EVAAAAAAA, YEAH GURRRL',
-    ownerID: 'BOB the BuildAA'
+    //description: 'THIS IS THE BEST EFFIN VIDEO EVAAAAAAA, YEAH GURRRL',
+    ownerID: 'BOB the BuildAA',
+    videoURL: 'http://www.youtube.com/embed/WRmBChQjZPs',
+    dateAdded: 'Today'
   };
 
  res.json(data);
