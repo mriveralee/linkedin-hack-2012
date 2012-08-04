@@ -19,8 +19,28 @@ TDM.User = Backbone.Model.extend({
    *
    * @method fullName
    */
-  userName: function() {
+  getUserName: function() {
     return this.get('username');
+  },
+
+  getRooms: function() {
+      return this.get('rooms');
+  },
+
+  getCreatedDate: function() {
+      return this.get('created_date');
+  },
+
+  getIconURL: function() {
+      return this.get('icon_URL');
+  },
+
+  getEmail: function() {
+      return this.get('email');
+  },
+
+  getYoutubeName: function() {
+      return this.get('youtubeName');
   },
 
   setUserName: function(){
@@ -46,7 +66,7 @@ TDM.User = Backbone.Model.extend({
 },{
 
   // static attributes and methods
-  CURRENT_USER_KEY: "DMD:currentUser",
+  CURRENT_USER_KEY: "TMD:currentUser",
   currentUser: null,
 
   /**
