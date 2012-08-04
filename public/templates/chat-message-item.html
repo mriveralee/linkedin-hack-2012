@@ -5,11 +5,13 @@
   </div>
   <div class="chat-message-details">
       <div class="chat-user-name"><%= msgData.user%></div>
-       <%= msgData.message %>
+       <div class="chat-message" data-chat-msg-item="<%=dataIdentity%>">
+         <%= msgData.message %>
+        </div>
       <br>
       </div>
   </div>
-<div class="chat-message-sent-time">
+<div class="chat-message-sent-time" data-chat-msg-time='<%=dataIdentity+"-time"%>'>
   <%= msgData.dateString%>
 </div>
 <div class="chat-message-divider"></div>

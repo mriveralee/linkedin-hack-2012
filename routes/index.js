@@ -148,8 +148,8 @@ function searchVideo(req, res){
     var tempJson = JSON.parse(body).feed.entry;
     var returnVal = []
 
-    for(index in tempJson){
-      var item = tempJson[index];
+    for(i in tempJson){
+      var item = tempJson[i];
       var mediaGroup = item.media$group;
       var temp = {};
       temp['title'] = mediaGroup.media$title.$t;
