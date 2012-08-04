@@ -132,3 +132,19 @@ a.header-link {
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 );
   /* IE6-8 */ }
+
+
+#player-view-container {
+    background: black;
+    width: 640px;
+    color: white;
+}
+
+#player-container {
+    width: 640px;
+    height: 385px;
+}
+
+#player-description {
+    font-size: 10px;
+}

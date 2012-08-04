@@ -46,7 +46,7 @@ function getPlaylistData(req, res){
   console.log ('PLAYLIST DATA');
   var data = {
     playlistName: 'My Playlist is effin Awwwwwwwh(yeah!)Some',
-    videos: ['video1', 'video2', 'video3']
+    videos: [{videoName: 'video1'}, {videoName: 'video2'}, {videoName: 'video3'}]
   };
 
   res.json(data);

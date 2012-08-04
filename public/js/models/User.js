@@ -31,17 +31,17 @@ TDM.User = Backbone.Model.extend({
       return this.get('createdDate');
   },
 
-  getIconURL: function() {
-      return this.get('iconURL');
-  },
+//  getIconURL: function() {
+//      return this.get('iconURL');
+//  },
 
   getEmail: function() {
       return this.get('email');
   },
 
-  getYoutubeName: function() {
-      return this.get('youtubeName');
-  },
+//  getYoutubeName: function() {
+//      return this.get('youtubeName');
+//  },
 
   setUserName: function(){
     var value = $('#username-input-box').val();
