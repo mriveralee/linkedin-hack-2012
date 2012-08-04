@@ -1,0 +1,120 @@
+.center-block {
+  width: 100%;
+  display: block; }
+
+body {
+  width: 100%;
+  background-color: #27292b;
+  margin: 0px 0px;
+  /* Browsers will set a margin > 0 by default, so reset it to 0 here */
+  /*background: url("../images/bg.png") repeat;*/
+  /*overflow: hidden;*/
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #161616;
+  font-size: 13px;
+  height: auto; }
+
+#header {
+  font-size: 16px;
+  color: white;
+  position: fixed;
+  top: 0px;
+  height: 35px;
+  vertical-align: bottom;
+  background-color: #4c1b1b;
+  z-index: 10000; }
+  #header .a {
+    color: white; }
+
+a.header-link {
+  padding: 5px 0px 5px;
+  color: #FFFFFF; }
+
+#chat-container {
+  position: absolute;
+  width: 300px;
+  height: 800px;
+  border: 1px solid black;
+  right: 0px; }
+
+#chat-messages-window {
+  max-width: 300px;
+  word-wrap: break-word;
+  height: 500px;
+  background-color: white;
+  overflow-y: auto;
+  overflow-x: none;
+  padding-right: 10px; }
+
+#chat-text-input-box {
+  resize: none;
+  width: 230px; }
+
+.chat-message-item {
+  margin-left: 4px;
+  width: 100%; }
+
+.chat-message-image {
+  margin: 2px 10px 0 0; }
+
+.chat-message-image-container {
+  float: left;
+  width: 40px; }
+
+.chat-message-details {
+  margin-left: 40px; }
+
+.chat-user-name {
+  font-weight: bold; }
+
+.chat-message-divider {
+  clear: both;
+  border-bottom-color: #EDEDED;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  display: block; }
+
+.chat-message-sent-time {
+  float: right;
+  font-size: 11px;
+  color: #bfbfbf; }
+
+#video-list-container {
+  position: absolute;
+  width: 200px;
+  height: 800px;
+  border: 1px solid black;
+  left: 0px; }
+
+#video-player-container {
+  position: absolute;
+  width: 560px;
+  height: 800px;
+  border: 1px solid black;
+  left: 550px; }
+
+#footer {
+  position: fixed;
+  width: 100%;
+  height: 30px;
+  bottom: 0px;
+  background: #7d7e7d;
+  /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzdkN2U3ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIxJSIgc3RvcC1jb2xvcj0iIzRjNGM0YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM5JSIgc3RvcC1jb2xvcj0iIzMzMzMzMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcyJSIgc3RvcC1jb2xvcj0iIzBlMGUwZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+  background: -moz-linear-gradient(top, #7d7e7d 1%, #4c4c4c 21%, #333333 39%, #0e0e0e 72%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #7d7e7d), color-stop(21%, #4c4c4c), color-stop(39%, #333333), color-stop(72%, #0e0e0e));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #7d7e7d 1%, #4c4c4c 21%, #333333 39%, #0e0e0e 72%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #7d7e7d 1%, #4c4c4c 21%, #333333 39%, #0e0e0e 72%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #7d7e7d 1%, #4c4c4c 21%, #333333 39%, #0e0e0e 72%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #7d7e7d 1%, #4c4c4c 21%, #333333 39%, #0e0e0e 72%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 );
+  /* IE6-8 */ }
