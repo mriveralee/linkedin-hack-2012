@@ -107,16 +107,15 @@ function createRoom(req, res){
   //TODO:
   var roomName = req.body.roomName;
   
-  db.run("INSERT OR IGNORE INTO rooms (room_id, roomName, users, messages, playlist) values (?, ?, ?, ?, ?)", null, roomName, '{}', '{}', '{}'); 
+  db.run("INSERT OR IGNORE INTO rooms (room_id, roomName, users, messages, playlists) values (?, ?, ?, ?, ?)", null, roomName, '{}', '{}', '{}'); 
   
 }
 
 function addVideoToRoom(req, res){
   var roomName = req.body.roomName;
   var videoURL = req.body.videoURL;
-
-
-  
+  var playlistJson = req.body.playlistJson;
+  var sql = 'UPDATE rooms SET playlists = ' + playlistJson;
   
 }
 
@@ -219,6 +218,7 @@ app.get('/login', login);
 app.get('/playlists', playlist);
 app.get('/playlist/:id', getPlaylistData);
 app.get('/search/:query', searchVideo);
+app.get('/room/video/add', addVideoToRoom);
 
 app.get('/auth/google'
         , passport.authenticate('google'
