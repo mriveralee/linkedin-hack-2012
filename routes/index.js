@@ -207,7 +207,7 @@ function getRoomData(req, res){
     ;
   });
   db.close();
-  
+  });
 }
 
 
