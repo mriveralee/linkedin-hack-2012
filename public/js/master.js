@@ -13,7 +13,9 @@ function include(file)
 
 
 //App Namespace
-TDM = {};
+if (!TDM) {
+  TDM = {};
+}
 
 
 

@@ -3,7 +3,8 @@
  *
  */
 
-
+// App Name Space x.x
+TDM = {};
 
 /* To get a template ask TDM.templateManager.getTemplate(<name>)
  * with the <name> of the the template
@@ -13,7 +14,9 @@
 TDM.templates = {
 	// Names of templates
     'chat_message_item': 'chat-message-item.html',
-	
+	'video': 'video.html',
+
+
 	//Add more
 	'name': 'file.html'	
 };
@@ -22,6 +25,7 @@ TDM.templates = {
 // Template Manager - DO NOT EDIT
 TDM.templateManager = {
   'directory': '/templates/',
+  'savedTemplates': {},
 
   //App template names
   'chatMessageItem': 'chat-message-item.html',  	// was chat_message_item for name
@@ -30,18 +34,28 @@ TDM.templateManager = {
   'getURLFor': function(template) {
     return this.directory+template;
    },
+
+
   'getTemplate': function(templateName) {
 	//Given a TDM template name get url and return it if it is saved otherwise do an jax 
-		if (TDM.templates[templateName]) {
-		 	return TDM.templates[templateName];
+		if (TDM.templateManager.savedTemplates[templateName]) {
+		 	return TDM.templateManager.savedTemplates[templateName];
 		}
 		else {
 			var savedName = templateName;
-			$.get(TDM.templateManager.getURLFor(templateName), function(htmlTemplate){
-		    	TDM.template[savedName] = htmlTemplate;
-		  	});
+      $.get(TDM.templateManager.getURLFor(templateName), function(htmlTemplate){
+		    	TDM.templateManager.savedTemplates[savedName] = htmlTemplate;
+		  });
 		}
-	}
+	},
+
+  'preloadTemplates' : function(){
+    for (key in TDM.templates) {
+      TDM.templateManager.getTemplate(TDM.templates[key]);
+      //console.log('Template Loaded: ' + TDM.templates[key]);
+    }
+    console.log('Templates Preloaded');
+  }
 };
 
 
@@ -52,3 +66,4 @@ TDM.placeKitten = {
   }
 };
 
+TDM.templateManager.preloadTemplates();
