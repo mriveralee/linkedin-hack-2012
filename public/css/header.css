@@ -1,10 +1,11 @@
 .center-block {
   width: 100%;
-  display: block; }
+  display: block;
+}
 
 body {
   width: 100%;
-  background-color: #27292b;
+  /*background-color: #27292b; */
   margin: 0px 0px;
   /* Browsers will set a margin > 0 by default, so reset it to 0 here */
   /*background: url("../images/bg.png") repeat;*/
@@ -12,7 +13,11 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #161616;
   font-size: 13px;
-  height: auto; }
+  height: auto;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:#f5f5f5 ;
+}
 
 #header {
   font-size: 16px;
@@ -22,20 +27,29 @@ body {
   height: 35px;
   vertical-align: bottom;
   background-color: #4c1b1b;
-  z-index: 10000; }
-  #header .a {
-    color: white; }
+  z-index: 10000;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#header .a {
+    color: white;
+}
 
 a.header-link {
   padding: 5px 0px 5px;
-  color: #FFFFFF; }
+  color: #FFFFFF;
+}
 
 #chat-container {
   position: absolute;
   width: 300px;
   height: 800px;
   border: 1px solid black;
-  right: 0px; }
+  right: 0px;
+}
 
 #chat-messages-window {
   max-width: 300px;
@@ -43,7 +57,7 @@ a.header-link {
   height: 500px;
   background-color: white;
   overflow-y: auto;
-  overflow-x: none;
+  overflow-x: auto ;
   padding-right: 10px; }
 
 #chat-text-input-box {

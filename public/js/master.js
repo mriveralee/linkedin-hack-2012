@@ -28,7 +28,7 @@ TDM = {};
 //include('/js/json2.js');
 //include('/js/socket.io.js');
 
-include('/js/chatapp.js');
+include('/js/chatApp.js');
 
 //Backbone Models
 include('/js/models/Chat.js');

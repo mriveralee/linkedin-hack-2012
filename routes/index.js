@@ -12,7 +12,13 @@ console.log(app + 'hi');
 
 function index(req, res){
   console.log ('HIT');
-  res.render('index', { title: 'Express' });
+  var data = {
+    name: 'bob',
+    id: 'something',
+    test: 'shit'
+  };
+
+  res.render('index', { title: 'Express', data:data });
 };
 
 function login(req, res){

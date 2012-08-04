@@ -2,19 +2,32 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <script type='text/javascript'>
+      var APPDATA = {}
+
+      APPDATA.index = <%- JSON.stringify(data) %>;
+
+    </script>
+
 
     <script type='text/javascript' src='/js/jquery-1.7.2.min.js'></script>
-    <script type='text/javascript' src='/js/jquery-ui-1.8.21.custom/jquery-ui-1.8.21.custom.min.js'></script>
+    <!--script type='text/javascript'
+    src='/js/jquery-ui-1.8.21.custom/jquery-ui-1.8.21.custom.min.js'></script-->
     <script type='text/javascript' src='/js/socket.io.js'></script>
     <script type='text/javascript' src='/js/underscore-min.js'></script>
     <script type='text/javascript' src='/js/backbone-min.js'></script>
     <script type='text/javascript' src='/js/json2.js'></script>
+
     <script type='text/javascript' src='/js/master.js'></script>
     <script type='text/javascript' src='/js/template-manager.js'></script>
 
-    <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css'>
     <link rel='stylesheet' type='text/css' href='/css/header.css'>
+
+
+
+
+
 
 
 
@@ -26,5 +39,10 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <a href="/auth/google">yee login boi</a>
+
+
+
+
+
   </body>
 </html>
