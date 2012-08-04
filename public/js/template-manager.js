@@ -17,7 +17,8 @@ TDM.templates = {
   'video': 'video.html',
   'player': 'player.html',
   'playlist': 'playlist.html',
-  'videolist': 'videolist.html'
+  'videolist': 'videolist.html',
+   'video_list_item': 'video-list-item.html'
 
 	//Add more
 	//'name': 'file.html'

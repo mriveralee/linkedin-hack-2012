@@ -19,12 +19,16 @@ $(function() {
 
 
 TDM.AppView = Backbone.View.extend({
-  el: $('#tdm-app'),
+
+
+    el: $('#tdm-app'),
 
   events: {
-
+     'click' :'log'
   },
-
+    log: function() {
+        console.log('APP VIEW');
+    },
 //   users: {},
 //   room: {},
 //   currentVideo: {},

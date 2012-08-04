@@ -2,10 +2,5 @@
     <%= playlistName %>
 </div>
 <div id="playlist-videos-container">
-    <% _.each(videos, function(vid, key) { %>
-        <div class="video-list-item">
-                <img src="<%=vid.thumbnailURL%>" />
-                <%=vid.videoName%> Uploaded by: <%= vid.ownerID%> <%= vid.dateAdded%>
-        </div>
-    <% })  %>
 </div>
+

@@ -9,13 +9,19 @@
 
 TDM.VideoListView = Backbone.View.extend({
 
-    templateName: TDM.templates.videolist,
+    templateName: TDM.templates.video_list_item,
+    videosContainer: '#playlist-videos-container',
 
     initialize: function() {
         TDM.templateManager.getTemplate(this.templateName);
         var model = this.model;
         model.on('change', this.render, this);
+        _.bindAll(this, 'render');
         this.render();
+    },
+
+    events: {
+        "tap .video-list-item" : "updatePlayer"
     },
 
     render: function() {
@@ -25,16 +31,29 @@ TDM.VideoListView = Backbone.View.extend({
             var ownerID = (this.model.getOwnerID()) ? this.model.getOwnerID() : "";
             var videoURL = (this.model.getVideoURL()) ? this.model.getVideoURL() : "";
             var dateAdded = (this.model.getDateAdded()) ? this.model.getDateAdded() : "";
+            var thumbnailURL = (this.model.getThumbnailURL()) ? this.model.getThumbnailURL() : "";
 
             var templateHTML = _.template(TDM.templateManager.getTemplate(this.templateName), {
                 videoName: videoName,
                 description: description,
                 ownerID: ownerID,
                 videoURL: videoURL,
-                dateAdded: dateAdded
+                dateAdded: dateAdded,
+                thumbnailURL: thumbnailURL
             });
-            $('#video-list-view-container').html(templateHTML);
+
+            debugger;
+
+            $(this.videosContainer).append(templateHTML);
+
+
+
         }
+    },
+
+    updatePlayer: function() {
+       debugger;
+        var newPlayerView = new TDM.PlayerView({ model: this.model });
     }
 
 });
