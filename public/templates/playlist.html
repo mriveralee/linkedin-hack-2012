@@ -3,6 +3,6 @@
 </div>
 <div id="playlist-videos-container">
     <% _.each(videos, function(vid, key) { %>
-        <li><%=vid.videoName%></li>
+        <li><img src="<%=vid.thumbnailURL%>" /><b><%=vid.videoName%></b>: <%= vid.description%></li>
     <% })  %>
 </div>
