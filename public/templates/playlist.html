@@ -5,7 +5,7 @@
     <% _.each(videos, function(vid, key) { %>
         <div class="video-list-item">
                 <img src="<%=vid.thumbnailURL%>" />
-                <b><%=vid.videoName%></b>: <%= vid.description%>
+                <%=vid.videoName%> Uploaded by: <%= vid.ownerID%> <%= vid.dateAdded%>
         </div>
     <% })  %>
 </div>

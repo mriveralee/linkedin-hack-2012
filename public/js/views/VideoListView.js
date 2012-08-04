@@ -20,13 +20,18 @@ TDM.VideoListView = Backbone.View.extend({
 
     render: function() {
         if (this.model) {
-            var videoName = this.model.getVideoName();
-            var description = this.model.getDescription();
-            var ownerID = this.model.getOwnerID();
+            var videoName = (this.model.getVideoName()) ? this.model.getVideoName() : "";
+            var description = (this.model.getDescription()) ? this.model.getDescription() : "";
+            var ownerID = (this.model.getOwnerID()) ? this.model.getOwnerID() : "";
+            var videoURL = (this.model.getVideoURL()) ? this.model.getVideoURL() : "";
+            var dateAdded = (this.model.getDateAdded()) ? this.model.getDateAdded() : "";
+
             var templateHTML = _.template(TDM.templateManager.getTemplate(this.templateName), {
                 videoName: videoName,
                 description: description,
-                ownerID: ownerID
+                ownerID: ownerID,
+                videoURL: videoURL,
+                dateAdded: dateAdded
             });
             $('#video-list-view-container').html(templateHTML);
         }
