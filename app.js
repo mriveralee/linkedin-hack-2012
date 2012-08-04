@@ -42,11 +42,11 @@ function createDB(){
                                UNIQUE (email))");
 
     //store users, messages in csv or json
-    db.run("CREATE TABLE rooms(room_id INTEGER PRIMARY KEY, \
+    db.run("CREATE TABLE rooms(room_id INTEGER PRIMARY KEY AUTOINCREMENT, \
                               roomName TEXT, \
                               users TEXT, \
                               messages TEXT, \
-                              playlists TEXT)");
+                              playlist TEXT)");
 
     db.run("CREATE TABLE videos(video_id INTEGER PRIMARY KEY, \
                               videoName TEXT, \
