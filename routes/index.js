@@ -3,6 +3,19 @@
  * GET home page.
  */
 
-exports.index = function(req, res){
+
+var app = require('../app').server;
+
+
+
+function index(req, res){
+  console.log ('HIT');
   res.render('index', { title: 'Express' });
 };
+
+
+app.get('/', index);
+
+
+module.export.index = index;
+
