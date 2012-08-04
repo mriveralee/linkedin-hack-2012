@@ -15,11 +15,13 @@ CONST = {
   developer_key : 'AI39si4gv_2PveEdcwyyPnqk5QFK83gp5TpnxHFzOOGexfnsL03lcXU3IvyGZcU9H1BoTYpGUAiIIdn7DF7UGoDHZI5zGlL2fQ',
   client_id : '929100726806.apps.googleusercontent.com',
   client_secret : 'NLd7hSKALSGTG8VOFEoNquOz'
-}
+};
 
 module.exports.server = app;
 module.exports.CONST = CONST;
 module.exports.token = '';
+
+var routes = require('./routes/data');
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);

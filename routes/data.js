@@ -1,5 +1,6 @@
 
 var app = require('../app').server;
+var  http = require('http');
 
 
 
@@ -10,7 +11,7 @@ function getUserData(req, res){
   var data = {
     userName: 'bob',
     createdDate: 'CreatedData',
-    rooms: ['room1', 'room2', 'room3']
+    rooms: ['room1', 'room2', 'room3'],
     iconURL: "http://placekitten.com/40/40",  // Make sure this is encodedURI value
     email: "user@gmail.com",
     youtubeName: 'Youtuber1'
@@ -44,7 +45,7 @@ function getPlaylistData(req, res){
   console.log("Playlist ID" + playlistID);
   console.log ('PLAYLIST DATA');
   var data = {
-    playlistName: 'My Playlist is effin Awwwwwwwh(yeah!)Some'
+    playlistName: 'My Playlist is effin Awwwwwwwh(yeah!)Some',
     videos: ['video1', 'video2', 'video3']
   };
 
@@ -66,7 +67,6 @@ function getVideoData(req, res){
 };
 
 
-app.get('/', index);
 
 app.get('/room/:id', getRoomData);
 app.get('/playlist/:id', getPlaylistData);
@@ -75,7 +75,6 @@ app.get('/video/:id', getUserData);
 
 
 
-module.exports.index = index;
 module.exports.room = getRoomData;
 module.exports.user = getUserData;
 module.exports.playlist = getPlaylistData;
