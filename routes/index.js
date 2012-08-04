@@ -112,10 +112,16 @@ function createRoom(req, res){
 }
 
 function addVideoToRoom(req, res){
-  var roomName = req.body.roomName;
+  var roomID = req.param('id');
   var videoURL = req.body.videoURL;
   var playlistJson = req.body.playlistJson;
-  var sql = 'UPDATE rooms SET playlists = ' + playlistJson;
+  var sql = 'UPDATE rooms SET playlists = ' + playlistJson + 'WHERE room_id =  ' + roomID;
+  
+}
+
+function addVideoToPlaylist(req,res){
+  var playlistID =  req.body.playlistID
+  var url = 'https://gdata.youtube.com/feeds/api/playlists/PLAYLIST_ID'
   
 }
 
@@ -218,7 +224,7 @@ app.get('/login', login);
 app.get('/playlists', playlist);
 app.get('/playlist/:id', getPlaylistData);
 app.get('/search/:query', searchVideo);
-app.get('/room/video/add', addVideoToRoom);
+app.get('/room/:id/video/add', addVideoToRoom);
 
 app.get('/auth/google'
         , passport.authenticate('google'
