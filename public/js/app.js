@@ -12,4 +12,7 @@ $(function() {
    TDM.User.currentUser.setUserName();
    });
 
+  //make view
+
+  // view.render ()
 });
