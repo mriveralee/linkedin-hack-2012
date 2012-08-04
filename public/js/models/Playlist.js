@@ -6,3 +6,11 @@
   * @module  MDM
   * @class Playlist
   */
+
+
+TDM.Playlist = Backbone.Model.extend({  
+
+
+
+
+});
