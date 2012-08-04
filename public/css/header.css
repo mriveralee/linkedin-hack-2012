@@ -49,6 +49,7 @@ a.header-link {
   height: 800px;
   border: 1px solid black;
   right: 0px;
+  bottom: 0px;
 }
 
 #chat-messages-window {
@@ -58,11 +59,16 @@ a.header-link {
   background-color: white;
   overflow-y: auto;
   overflow-x: auto ;
-  padding-right: 10px; }
+  padding-right: 10px;
+  border: 1px solid black}
 
 #chat-text-input-box {
   resize: none;
-  width: 230px; }
+  width: 250px;
+  padding-right: 10px;
+  position: relative;
+  top: -2px;
+}
 
 .chat-message-item {
   margin-left: 4px;
@@ -171,3 +177,9 @@ a.header-link {
 .video-list-item img {
     vertical-align: middle;
 }
+
+
+
+
+
+
