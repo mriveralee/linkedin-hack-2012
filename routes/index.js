@@ -4,9 +4,9 @@
  */
 
 
-var app = require('../app').server;
+var app = require('../app').server
 
-
+console.log(app + 'hi');
 
 function index(req, res){
   console.log ('HIT');
@@ -14,8 +14,9 @@ function index(req, res){
 };
 
 
+
 app.get('/', index);
 
 
-module.exports.index = index;
 
+module.exports.index = index;
