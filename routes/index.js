@@ -8,7 +8,7 @@ var app = require('../app').server
   , passport = require('passport')
   , http = require('http');
 
-console.log(app + 'hi');
+//console.log(app + 'hi');
 
 function index(req, res){
   console.log ('HIT');

@@ -68,10 +68,10 @@ function getVideoData(req, res){
 
 app.get('/', index);
 
-app.get('room/:id', getRoomData);
-app.get('playlist/:id', getPlaylistData);
-app.get('user/:id', getUserData);
-app.get('video/:id', getUserData);
+app.get('/room/:id', getRoomData);
+app.get('/playlist/:id', getPlaylistData);
+app.get('/user/:id', getUserData);
+app.get('/video/:id', getUserData);
 
 
 
