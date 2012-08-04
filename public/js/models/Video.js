@@ -10,6 +10,7 @@
 TDM.Video = Backbone.Model.extend({  
     urlRoot: '/video',
 
+
     getVideoName: function() {
         return this.get('videoName');
     },
