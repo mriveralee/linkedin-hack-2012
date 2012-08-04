@@ -13,7 +13,7 @@ TDM = {};
 
 TDM.templates = {
 	// Names of templates
-    'chat_message_item': 'chat-message-item.html',
+   'chat_message_item': 'chat-message-item.html',
 	'video': 'video.html'
 
 

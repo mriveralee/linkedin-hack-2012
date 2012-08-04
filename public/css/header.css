@@ -52,9 +52,9 @@ a.header-link {
 }
 
 #chat-messages-window {
-  max-width: 300px;
+  max-width: 250px;
   word-wrap: break-word;
-  height: 500px;
+  height: 270px;
   background-color: white;
   overflow-y: auto;
   overflow-x: auto ;
@@ -78,8 +78,15 @@ a.header-link {
 .chat-message-details {
   margin-left: 40px; }
 
+.chat-message-details {
+  font-size: 12px;
+}
+
+
 .chat-user-name {
-  font-weight: bold; }
+  font-weight: bold;
+  font-size: 14px;
+}
 
 .chat-message-divider {
   clear: both;

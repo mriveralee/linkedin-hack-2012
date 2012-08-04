@@ -1,22 +1,28 @@
 
 $(document).ready(function() {
 
-//  //Get template
-//  $.get(TDM.templateManager.getURLFor(TDM.templateManager.chat_message_item), function(htmlTemplate){
-//    TDM.templateManager.savedTemplates.chat_message_item = htmlTemplate;
-//  });
 
 
-  var socket = io.connect("http://localhost:3000");
+  //console.log(document.location.href);
+
+  var socket = io.connect(document.location.href);
+
   var chatWindow = $('#chat-messages-window');
   var chatMessageBox = $('#chat-text-input-box');
-  var chatTemplate = TDM.templateManager.chat_message_item;
+  var chatTemplate = TDM.templates.chat_message_item;
+
+  TDM.templateManager.getTemplate(chatTemplate);
 
   // Receive chat message
   socket.on('chat message', function (data) {
     console.log(data);
 
     drawChat(data);
+  });
+
+  socket.on('test', function (data) {
+    console.log(data);
+
   });
 
   // Chat history
@@ -26,7 +32,14 @@ $(document).ready(function() {
 
     });
 
+  var LAST_CHAT = {
+    user: "",
+    dataIdentity: ""
+  };
 
+
+
+ //TODO draw history is incorrect
   var drawHistory = function(data) {
     var history = data.history;
     if (history) {
@@ -72,12 +85,23 @@ $(document).ready(function() {
 
   // Send chat message
   var sendChat = function() {
+    var inputDiv = $('#chat-text-input-box');
+    console.log(inputDiv);
+    var chatMessage =  $(inputDiv).val();
+    chatMessage = chatMessage.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 
-    var chatMessage = $('#chat-text-input-box').val();
     // create some sort of data object
     if(chatMessage != ""){
+      var kittyName = "User" + Math.round(Math.random()*3049539);
+
+      var userName = (TDM.User.currentUser && TDM.User.currentUser.getUserName()) ? TDM.User.currentUser.getUserName() : "";
+       if (!userName || userName === "") {
+         TDM.User.currentUser.set('username', kittyName);
+       }
+
+
       var data = {
-        "user": (TDM.User.currentUser) ? TDM.User.currentUser.userName() : "Unnamed User",
+        "user": (TDM.User.currentUser && TDM.User.currentUser.getUserName()) ? TDM.User.currentUser.getUserName() : "",
         "message": chatMessage
       };
 
@@ -91,9 +115,10 @@ $(document).ready(function() {
   };
 
 
+
+
   // change this, make this draw something smarter
   var drawChat = function(data) {
-    var templateURL = TDM.templateManager.getURLFor(chatTemplate);
     var msgData = data;
     var randNum = Math.round((Math.random()*100))%10;
 
@@ -108,22 +133,30 @@ $(document).ready(function() {
     var date = new Date(data['create_date']*1000);
     var dateStr = date.getMonth() +"/" + date.getDate() + "/" + date.getFullYear();
     msgData.dateString = date.toLocaleTimeString() + " " + dateStr;
+    //DATA IDENTITY
+    var dataIdentity = getDataIdentityForMessage(msgData);
 
-    if (!TDM.templateManager.savedTemplates.chat_message_item){
-      $.get(templateURL, function(htmlTemplate){
-        TDM.templateManager.savedTemplates.chat_message_item = htmlTemplate;
-        var html = _.template(htmlTemplate,{msgData: msgData, image:image});
-        chatWindow.append(html);
-      });
-    } else {
-      //Image Var
-      var html = _.template(TDM.templateManager.savedTemplates.chat_message_item,{msgData: msgData, image:image});
+    if (LAST_CHAT.user !== msgData.user) {
+      LAST_CHAT.dataIdentity = dataIdentity;
+      LAST_CHAT.user = msgData.user;
+      var html = _.template(TDM.templateManager.getTemplate(TDM.templates.chat_message_item),{msgData: msgData, image:image, dataIdentity:dataIdentity});
       chatWindow.append(html);
+    }
+    else {
+     debugger;
+      //Append Msg data
+      var textLocation = getMSGTextLocation(LAST_CHAT.dataIdentity);
+      var html = "\n\n"+ '<br>' +msgData.message;
+      $(textLocation).append(html);
 
+      //Update Time String
+      var timeLocation = getMSGDateLocation(LAST_CHAT.dataIdentity);
+      $(timeLocation).text(msgData.dateString);
 
     }
+
     // Disable if we only want scroll bottom on history load
-    //scrollChat();
+    scrollChat();
   };
 
   var scrollChat = function(){
@@ -144,5 +177,26 @@ $(document).ready(function() {
     }
 
   });
+
+
+  function getDataIdentityForMessage(msgData) {
+    var dataIdentity = 'chat-msg-' + msgData.user+'-' + msgData['create_date'];
+    return dataIdentity;
+  }
+
+  function getMSGTextLocation(dataIdentityData) {
+    //var dataIdentity = getDataIdentityForMessage(dataIdentityData);
+    var location =  'div[data-chat-msg-item='+ dataIdentityData +']';
+    return location;
+  }
+
+  function getMSGDateLocation(dataIdentityData) {
+    //var dataIdentity = getDataIdentityForMessage(dataIdentityData);
+    var location =  'div[data-chat-msg-time='+ dataIdentityData + '-time' +']';
+    return location;
+  }
+
+
+
 });
 

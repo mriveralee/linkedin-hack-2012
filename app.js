@@ -8,7 +8,10 @@ var express = require('express')
   , app = express()
   , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
   , passport = require('passport')
-  , sqlite3 = require('sqlite3').verbose(); 
+  , sqlite3 = require('sqlite3').verbose()
+  , util = require('util');
+
+
 
 
 CONST = {
@@ -21,7 +24,9 @@ module.exports.server = app;
 module.exports.CONST = CONST;
 module.exports.token = '';
 
-var routes = require('./routes/data');
+
+var dataRoutes = require('./routes/data');
+
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -89,6 +94,48 @@ passport.use(new GoogleStrategy({
 
 
 
-http.createServer(app).listen(app.get('port'), function(){
+var appServer = http.createServer(app);
+
+//var io = require('socket.io').listen(appServer);
+
+
+appServer.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+
+
+
+var io = require('socket.io').listen(appServer);
+io.set("log level", 0);
+
+
+io.sockets.on('connection', function (socket) {
+//  db.all("SELECT * FROM messages", function(e, r) {
+//    socket.emit("message history", {"history": r});
+//    console.log(r);
+//  });
+
+  //socket.emit("test", {hello:'test'});
+  //console.log("SENT TEST");
+
+  socket.on('chat message', function (data) {
+    data.create_date = Math.floor(new Date().getTime() / 1000);
+    data.room = "blah";
+    io.sockets.emit('chat message', data);
+    //console.log(data);
+
+    // record the chat message at some point
+    // db.run("INSERT INTO messages (create_date, user, room, message) values (?, ?, ?, ?)", data.create_date, data.user, data.room, data.message);
+  });
+});
+
+
+
+
+
+
+
+
+module.exports.appServer = appServer;
+//module.exports.io = io;
