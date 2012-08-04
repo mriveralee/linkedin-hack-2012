@@ -42,6 +42,27 @@ function playlist(req, res){
     }
   };
 
+
+  var testResult;
+  function resultOnEnd(body){
+    var data = JSON.parse(body).feed.entry;
+    console.log(data);
+    testResult=data;
+ 
+    return data;
+  }
+  //initial request
+  console.log(makeRequest(options, resultOnEnd));
+
+  console.log('this is test: \n\n\n\n\n\n\n' + testResult); 
+
+  var results = {}
+
+
+}
+
+function makeRequest(options, resultOnEnd){
+  var returnVal;
   var req = http.request(options, function(res) {
     console.log("statusCode: ", res.statusCode);
     console.log("headers: ", res.headers);
@@ -54,23 +75,31 @@ function playlist(req, res){
     });
     
     res.on('end', function(){
-       var data = JSON.parse(body).feed.entry;
-       console.log(data);
+      returnVal = resultOnEnd(body);
+//      console.log(returnVal);
+      console.log('finishes');
     });
+
+   
+    console.log('GETS HERE');
+    console.log('GETS HERE TOO');
+    return returnVal;
+
+
   });
 
   req.on('error', function(e) {
-
-    console.log('\n NOOOO THERE WAS AN ERROR MAKING THE PLAYLIST REQUEST!!!!!\n')
+    console.log('\n NOOOO THERE WAS AN ERROR MAKING THE REQUEST!!!!!\n')
     console.error(e);
+    
   });
-  
+    
+
   req.end();
+ }
 
 
 
-
-}
 
 
 app.get('/', index);
