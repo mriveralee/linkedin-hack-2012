@@ -29,7 +29,7 @@ TDM.VideoView = Backbone.View.extend({
                 description: description,
                 ownerID: ownerID
             });
-            $('#player-video-view').html(templateHTML);
+            $('#video-view-container').html(templateHTML);
         }
     }
 

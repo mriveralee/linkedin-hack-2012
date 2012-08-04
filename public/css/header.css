@@ -139,3 +139,35 @@ a.header-link {
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 );
   /* IE6-8 */ }
+
+
+#player-view-container {
+    background: black;
+    width: 650px;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#player-container {
+    width: 640px;
+    height: 385px;
+}
+
+#player-description {
+    font-size: 10px;
+}
+
+#playlist-view-container {
+    position: absolute;
+    width: 250px;
+    border: 3px solid black;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -moz-box-shadow: 0 3px 10px #888888;
+    box-shadow: 0 3px 10px #888888;
+}
+
+.video-list-item img {
+    vertical-align: middle;
+}
