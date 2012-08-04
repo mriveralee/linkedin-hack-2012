@@ -15,6 +15,7 @@
     "nodemailer": "*",
     "sqlite3": "*",
     "crypto": "*",
-    "validator": "*"
+    "validator": "*",
+    "step" : "*"
   }
 }
