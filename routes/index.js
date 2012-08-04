@@ -91,6 +91,7 @@ function getPlaylistData(req, res){
       temp['videoURL'] = item.content.src;
       temp['description'] = mediaGroup.media$description.$t;
       temp['thumbnailURL'] = mediaGroup.media$thumbnail[0].url;
+      temp['videoID'] = mediaGroup.yt$videoid.$t;
       videos.push(temp);
     }
     returnVal.videos = videos;
@@ -101,6 +102,79 @@ function getPlaylistData(req, res){
   console.log('hiii');
   makeRequest(options, resultOnEnd);
 }
+
+function createRoom(req, res){
+  //TODO:
+  var roomName = req.body.roomName;
+  
+  db.run("INSERT OR IGNORE INTO rooms (room_id, roomName, users, messages, playlist) values (?, ?, ?, ?, ?)", null, roomName, '{}', '{}', '{}'); 
+  
+}
+
+function addVideoToRoom(req, res){
+  var roomName = req.body.roomName;
+  var videoURL = req.body.videoURL;
+
+
+  
+  
+}
+
+function searchVideo(req, res){
+  var queryString = req.param('query');
+  var url = 'https://gdata.youtube.com/feeds/api/videos?v=2&' + 'q=' + queryString;
+ 
+  url += '&orderby=published&start-index=11&max-results=10&v=2';
+
+ 
+   var options = {
+    host: 'gdata.youtube.com',
+    port: 80,
+    path: url,
+    method: 'GET',
+
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/atom+xml',
+      'GData-Version': '2',
+      'X-GData-Key': 'key=' + CONST.developer_key
+    }
+  };
+
+  console.log('query url:' + options.path);
+
+  var resultOnEnd = function(body){
+    
+    console.log(body);
+    var tempJson = JSON.parse(body).feed.entry;
+    var returnVal = []
+
+    for(index in tempJson){
+      var item = tempJson[index];
+      var mediaGroup = item.media$group;
+      var temp = {};
+      temp['title'] = mediaGroup.media$title.$t;
+      temp['videoURL'] = item.content.src;
+      temp['description'] = mediaGroup.media$description.$t;
+      temp['thumbnailURL'] = mediaGroup.media$thumbnail[0].url;
+      temp['videoID'] = mediaGroup.yt$videoid.$t;
+      returnVal.push(temp);
+     /* 
+      returnVal['videoName'] = tempJson[index].title.$t;
+      returnVal['description'] = tempJson[index].content.$t;
+      returnVal['videoURL'] = tempJson[index].content.
+      */
+    }
+    res.json(returnVal);
+  }
+  makeRequest(options, resultOnEnd);
+ 
+  
+}
+
+//function 
+
+
 
 //resultOnEnd(body) - body is the json returned
 
@@ -144,6 +218,8 @@ app.get('/', index);
 app.get('/login', login);
 app.get('/playlists', playlist);
 app.get('/playlist/:id', getPlaylistData);
+app.get('/search/:query', searchVideo);
+
 app.get('/auth/google'
         , passport.authenticate('google'
             , { scope: ['https://www.googleapis.com/auth/userinfo.profile',
@@ -162,6 +238,7 @@ app.get('/auth/google/callback',
   });
 
 
+app.post('/room/new', createRoom);
 
 
 

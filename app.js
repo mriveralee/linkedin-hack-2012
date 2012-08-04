@@ -53,12 +53,12 @@ function createDB(){
                                email TEXT, \
                                UNIQUE (email))");
 
-        //store users, messages in csv or json
-        db.run("CREATE TABLE rooms(room_id INTEGER PRIMARY KEY, \
+    //store users, messages in csv or json
+    db.run("CREATE TABLE rooms(room_id INTEGER PRIMARY KEY AUTOINCREMENT, \
                               roomName TEXT, \
                               users TEXT, \
                               messages TEXT, \
-                              playlists TEXT)");
+                              playlist TEXT)");
 
         db.run("CREATE TABLE videos(video_id INTEGER PRIMARY KEY, \
                               videoName TEXT, \
@@ -238,4 +238,5 @@ io.sockets.on('connection', function (socket) {
 module.exports.appServer = appServer;
 //module.exports.io = io;
 
+=======
 var indexRoutes = require('./routes/index');
