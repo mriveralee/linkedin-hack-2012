@@ -10,6 +10,8 @@
 TDM.User = Backbone.Model.extend({
 
   //url: function() { return this.buildUrl(DMD.config.authUrl); },
+  urlRoot: "/user/685675675675",
+
 
   /**
    * <p>Returns the user's full name. Use with caution: this has not been

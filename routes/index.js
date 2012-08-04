@@ -10,7 +10,13 @@ var app = require('../app').server;
 
 function index(req, res){
   console.log ('HIT');
-  res.render('index', { title: 'Express' });
+  var data = {
+    name: 'bob',
+    id: 'something',
+    test: 'shit'
+  };
+
+  res.render('index', { title: 'Express', data:data });
 };
 
 
