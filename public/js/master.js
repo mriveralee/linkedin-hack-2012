@@ -34,9 +34,11 @@ include('/js/chatApp.js');
 include('/js/models/Chat.js');
 include('/js/models/User.js');
 include('/js/models/Video.js');
+include('/js/models/Room.js');
 include('/js/models/Playlist.js');
 
 //Backbone Views
+include('/js/views/CreateRoomView.js');
 include('/js/views/ChatMessageView.js');
 include('/js/views/ChatView.js');
 include('/js/views/VideoView.js');
