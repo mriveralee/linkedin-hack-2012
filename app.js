@@ -8,9 +8,11 @@ var express = require('express')
   , app = express()
   , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
   , passport = require('passport')
-  , sqlite3 = require('sqlite3').verbose(); 
+  , sqlite3 = require('sqlite3').verbose()
+  , db = new sqlite3.Database('db/linkedin.db');
 
 module.exports.server = app;
+module.exports.db = db;
 
 CONST = {
   developer_key : 'AI39si4gv_2PveEdcwyyPnqk5QFK83gp5TpnxHFzOOGexfnsL03lcXU3IvyGZcU9H1BoTYpGUAiIIdn7DF7UGoDHZI5zGlL2fQ',
@@ -21,6 +23,49 @@ CONST = {
 module.exports.server = app;
 module.exports.CONST = CONST;
 module.exports.token = '';
+
+
+function createDB(){
+  db.serialize(function() {
+    db.run("DROP TABLE IF EXISTS messages");
+    db.run("DROP TABLE IF EXISTS users");
+    db.run("DROP TABLE IF EXISTS rooms");
+    db.run("DROP TABLE IF EXISTS videos");
+    db.run("DROP TABLE IF EXISTS playlists");
+
+    //store rooms in csv or json
+    db.run("CREATE TABLE users(user_id INTEGER PRIMARY KEY AUTOINCREMENT, \
+                               name TEXT, \
+                               rooms TEXT, \
+                               created_date INTEGER, \
+                               email TEXT, \
+                               UNIQUE (email))");
+
+    //store users, messages in csv or json
+    db.run("CREATE TABLE rooms(room_id INTEGER PRIMARY KEY, \
+                              roomName TEXT, \
+                              users TEXT, \
+                              messages TEXT, \
+                              playlists TEXT)");
+
+    db.run("CREATE TABLE videos(video_id INTEGER PRIMARY KEY, \
+                              videoName TEXT, \
+                              description TEXT, \
+                              owner_id INTEGER \
+                              )");
+    //store videos in csv or json
+    db.run("CREATE TABLE playlists(playlist_id INTEGER PRIMARY KEY, \
+                                   playlistName TEXT, \
+                                   videos TEXT)")
+    // chat messages table
+    db.run("CREATE TABLE messages(message_id INTEGER PRIMARY KEY, \
+                                   create_date INTEGER, \
+                                   user TEXT, \
+                                   room TEXT, \
+                                   message TEXT)");
+
+  });
+}
 
 
 app.configure(function(){
@@ -36,6 +81,7 @@ app.configure(function(){
   app.use(express.cookieParser('heyGirlHay'));
   app.use(express.session({ secret:'supGURLHowYouDoin' }));
   app.use(express.static(__dirname + '/public'));
+  createDB();
 });
 
 
@@ -56,6 +102,8 @@ passport.use(new GoogleStrategy({
       console.log('in the passport!');
       console.log(accessToken);
       console.log(refreshToken);
+    
+
       return done(err, user);
     });
   }
@@ -88,8 +136,25 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-     console.log(accessToken);
+    profile = profile._json;
+    console.log(accessToken);
+
+    console.log('THIS IS PROFILE');
+    console.log(profile);
+    //store the user
+    
     token = accessToken;
+
+    create_date = Math.floor(new Date().getTime() / 1000);
+     
+    db.run("INSERT OR IGNORE INTO users (user_id, name, rooms, created_date, email) values (?, ?, ?, ?, ?)", null, profile.name, '', create_date, profile.email);
+         
+
+//    db.run("INSERT INTO users (user_id, name, rooms, created_date, email) values (?, ?, ?, ?, ?)", create_date, , data.room, data.message);
+
+
+
+
     // asynchronous verification, for effect...
     process.nextTick(function () {
       // To keep the example simple, the user's Google profile is returned to

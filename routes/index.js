@@ -6,7 +6,8 @@
 
 var app = require('../app').server
   , passport = require('passport')
-  , http = require('http');
+  , http = require('http')
+  , db = require('../app').db;
 
 //console.log(app + 'hi');
 
