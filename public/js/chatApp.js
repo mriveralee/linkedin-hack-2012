@@ -7,11 +7,40 @@ $(document).ready(function() {
 
   var socket = io.connect(document.location.href);
 
+  var chatTitleContainer = $('#chat-title-container');
+  var chatContainer = $('#chat-container');
+
+  //animation vars
+  var slideAmount = chatContainer.height();
+  var up = {
+    bottom: '+='+slideAmount
+  };
+
+  // down variable for animations
+  var down = {
+    bottom: '-='+slideAmount
+  };
+
+
+  var isHidden = false;
+  chatTitleContainer.click(function() {
+    if (isHidden){
+       $(chatContainer).animate(up, 100 );
+       isHidden = false;// Animation complete.
+    }
+    else {
+     $(chatContainer).animate(down, 100 );
+     isHidden = true;// Animation complete.
+    };
+  });
+
+  var userCount = 0;
   var chatWindow = $('#chat-messages-window');
   var chatMessageBox = $('#chat-text-input-box');
   var chatTemplate = TDM.templates.chat_message_item;
-
+  var chatUsersCount = $('#chat-user-count');
   TDM.templateManager.getTemplate(chatTemplate);
+
 
   // Receive chat message
   socket.on('chat message', function (data) {
@@ -20,8 +49,15 @@ $(document).ready(function() {
     drawChat(data);
   });
 
-  socket.on('test', function (data) {
-    console.log(data);
+  socket.on('user entered room', function (data) {
+    userCount++;
+    chatUsersCount.html("("+userCount+")" + " Online");
+
+  });
+
+  socket.on('user left room', function (data) {
+    userCount--;
+    chatUsersCount.html("("+userCount+")" + " Online");
 
   });
 
@@ -143,7 +179,6 @@ $(document).ready(function() {
       chatWindow.append(html);
     }
     else {
-     debugger;
       //Append Msg data
       var textLocation = getMSGTextLocation(LAST_CHAT.dataIdentity);
       var html = "\n\n"+ '<br>' +msgData.message;

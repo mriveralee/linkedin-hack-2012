@@ -214,8 +214,13 @@ io.sockets.on('connection', function (socket) {
 //    console.log(r);
 //  });
 
-  //socket.emit("test", {hello:'test'});
+  socket.emit("test", {hello:'test'});
   //console.log("SENT TEST");
+  socket.on('disconnect', function() {
+    io.sockets.emit('user left room');
+  });
+  socket.emit("user entered room");
+
 
   socket.on('chat message', function (data) {
     data.create_date = Math.floor(new Date().getTime() / 1000);
