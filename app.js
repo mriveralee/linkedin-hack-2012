@@ -3,12 +3,14 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http');
+var express = require('express');
+var http = require('http');
 
 
-var app = express.createServer();
+var app = express();
+module.exports.server = app;
+
+var routes = require('./routes')
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -37,4 +39,3 @@ http.createServer(app).listen(app.get('port'), function(){
 
 
 
-module.exports.server = app;

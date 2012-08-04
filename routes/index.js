@@ -17,5 +17,5 @@ function index(req, res){
 app.get('/', index);
 
 
-module.export.index = index;
+module.exports.index = index;
 
