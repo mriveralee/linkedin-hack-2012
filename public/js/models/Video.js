@@ -19,7 +19,7 @@ TDM.Video = Backbone.Model.extend({
     },
 
     getOwnerID: function() {
-        return this.get('owner_ID');
+        return this.get('ownerID');
     }
 
 });

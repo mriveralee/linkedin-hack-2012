@@ -10,7 +10,7 @@
 TDM.User = Backbone.Model.extend({
 
   //url: function() { return this.buildUrl(DMD.config.authUrl); },
-  urlRoot: "/user/685675675675",
+  urlRoot: "/user",
 
 
   /**
@@ -28,11 +28,11 @@ TDM.User = Backbone.Model.extend({
   },
 
   getCreatedDate: function() {
-      return this.get('created_date');
+      return this.get('createdDate');
   },
 
   getIconURL: function() {
-      return this.get('icon_URL');
+      return this.get('iconURL');
   },
 
   getEmail: function() {

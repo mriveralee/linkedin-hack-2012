@@ -19,7 +19,7 @@ TDM.Room = Backbone.Model.extend({
     },
 
     getChatID: function() {
-        return this.get('chat_ID');
+        return this.get('chatID');
     },
 
     getPlaylist: function() {
