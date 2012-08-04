@@ -13,17 +13,11 @@ TDM = {};
 
 TDM.templates = {
 	// Names of templates
-<<<<<<< HEAD
-   'chat_message_item': 'chat-message-item.html',
-	'video': 'video.html'
-
-=======
-    'chat_message_item': 'chat-message-item.html',
-	'video': 'video.html',
-    'player': 'player.html',
-    'playlist': 'playlist.html',
-    'videolist': 'videolist.html'
->>>>>>> 6d8b823b55e5f30eceeb3c38f714f62ed7f01f7f
+  'chat_message_item': 'chat-message-item.html',
+  'video': 'video.html',
+  'player': 'player.html',
+  'playlist': 'playlist.html',
+  'videolist': 'videolist.html'
 
 	//Add more
 	//'name': 'file.html'
@@ -40,16 +34,25 @@ TDM.templateManager = {
    },
 
 
-  'getTemplate': function(templateName) {
+  'getTemplate': function(templateName, callback) {
 	//Given a TDM template name get url and return it if it is saved otherwise do an jax 
 		if (TDM.templateManager.savedTemplates[templateName]) {
-		 	return TDM.templateManager.savedTemplates[templateName];
+		 	if(callback) {
+       return callback(TDM.templateManager.savedTemplates[templateName]);
+       }
+
+      return TDM.templateManager.savedTemplates[templateName];
+
 		}
 		else {
+      var callbackBlock = callback;
 			var savedName = templateName;
       $.get(TDM.templateManager.getURLFor(templateName), function(htmlTemplate){
 		    	TDM.templateManager.savedTemplates[savedName] = htmlTemplate;
-		  });
+		  if (callbackBlock) {
+        return callbackBlock(htmlTemplate);
+      }
+      });
 		}
 	},
 

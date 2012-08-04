@@ -122,7 +122,7 @@ TDM.AppView = Backbone.View.extend({
 
 });
 
-
+ APPDATA;
 //Check for appdata
 if (!APPDATA) {
   APPDATA = {};

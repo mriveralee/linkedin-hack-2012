@@ -22,11 +22,18 @@ TDM.PlaylistView = Backbone.View.extend({
         if (this.model) {
             var playlistName = this.model.getPlaylistName();
             var videos = this.model.getVideos();
-            var templateHTML = _.template(TDM.templateManager.getTemplate(this.templateName), {
-                playlistName: playlistName,
-                videos: videos
+
+           //
+          var callback =
+
+          TDM.templateManager.getTemplate(this.templateName,  function (htmlTemplate) {
+            var templateHTML = _.template(htmlTemplate, {
+              playlistName: playlistName,
+              videos: videos
             });
             $('#playlist-view-container').html(templateHTML);
+          });
+
         }
     }
 

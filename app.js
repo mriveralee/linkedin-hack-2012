@@ -11,7 +11,7 @@ var util = require('util');
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('db/linkedin.db');
 
-console.log('DB:' + JSON.stringify(db));
+//console.log('DB:' + JSON.stringify(db));
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var passport = require('passport');
 module.exports.server = app;
@@ -238,5 +238,4 @@ io.sockets.on('connection', function (socket) {
 module.exports.appServer = appServer;
 //module.exports.io = io;
 
-=======
 var indexRoutes = require('./routes/index');
