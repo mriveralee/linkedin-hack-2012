@@ -34,7 +34,15 @@ TDM.AppView = Backbone.View.extend({
 
    initialize: function() {
 
-     //Create models
+    //Create models
+
+    var userModel = new TDM.User({ id: "userId123" });
+    this.test = userModel;
+    var roomModel = new TDM.Room({ id: "roomIdmew" });
+    var playlistModel = new TDM.Playlist({ id: "playlistIdrawr" });
+    var videoModel = new TDM.Video({ id: "videoIdFoo" });
+
+//    debugger;
 
     if (APPDATA.USERS) {
      this.users = APPDATA.USERS;
