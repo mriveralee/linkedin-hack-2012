@@ -64,6 +64,10 @@ TDM.AppView = Backbone.View.extend({
      this.playlist = APPDATA.PLAYLIST;
    }
 
+   if (APPDATA.USER_PLAYLISTS) {
+     this.playlist = APPDATA.USER_PLAYLISTS;
+   }
+
    },
 
   render: function() {
