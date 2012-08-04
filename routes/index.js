@@ -45,20 +45,19 @@ function playlist(req, res){
 
   var testResult;
   function resultOnEnd(body){
-    var data = JSON.parse(body).feed.entry;
-    console.log(data);
-    testResult=data;
- 
-    return data;
+    var tempJson = JSON.parse(body).feed.entry;
+    var data = {};
+    for(index in tempJson){
+
+      var patt = /playlist:[a-z A-Z 0-9]*/;
+      var tempstring = patt.exec(tempJson[index].id.$t).toString();
+      tempstring = tempstring.replace('playlist:', '');
+      data[tempJson[index].title.$t] = tempstring;
+    }
+    res.json(data);
   }
   //initial request
-  console.log(makeRequest(options, resultOnEnd));
-
-  console.log('this is test: \n\n\n\n\n\n\n' + testResult); 
-
-  var results = {}
-
-
+  makeRequest(options, resultOnEnd);
 }
 
 function makeRequest(options, resultOnEnd){
@@ -75,16 +74,10 @@ function makeRequest(options, resultOnEnd){
     });
     
     res.on('end', function(){
-      returnVal = resultOnEnd(body);
+      resultOnEnd(body);
 //      console.log(returnVal);
       console.log('finishes');
     });
-
-   
-    console.log('GETS HERE');
-    console.log('GETS HERE TOO');
-    return returnVal;
-
 
   });
 
@@ -97,6 +90,7 @@ function makeRequest(options, resultOnEnd){
 
   req.end();
  }
+
 
 
 
@@ -121,8 +115,6 @@ app.get('/auth/google/callback',
     // Successful authentication, redirect home.
     res.redirect('/playlists');
   });
-
-
 
 
 

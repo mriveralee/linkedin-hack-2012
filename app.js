@@ -10,6 +10,7 @@ var express = require('express')
   , passport = require('passport')
   , sqlite3 = require('sqlite3').verbose(); 
 
+module.exports.server = app;
 
 CONST = {
   developer_key : 'AI39si4gv_2PveEdcwyyPnqk5QFK83gp5TpnxHFzOOGexfnsL03lcXU3IvyGZcU9H1BoTYpGUAiIIdn7DF7UGoDHZI5zGlL2fQ',
@@ -21,7 +22,6 @@ module.exports.server = app;
 module.exports.CONST = CONST;
 module.exports.token = '';
 
-var routes = require('./routes/data');
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -35,16 +35,31 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser('heyGirlHay'));
   app.use(express.session({ secret:'supGURLHowYouDoin' }));
-  app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
+
 
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+var routes = require('./routes/index');
 
-var routes = require('./routes')
+//passport oauth
+passport.use(new GoogleStrategy({
+    clientID: CONST.client_id,
+    clientSecret: CONST.client_secret,
+    callbackURL: "http://127.0.0.1:3000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      console.log('in the passport!');
+      console.log(accessToken);
+      console.log(refreshToken);
+      return done(err, user);
+    });
+  }
+));
 
 
 // Passport session setup.
