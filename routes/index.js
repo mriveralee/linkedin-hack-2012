@@ -6,7 +6,8 @@
 var appFile = require('../app');
 var app = appFile.server
   , passport = require('passport')
-  , http = require('http');
+  , http = require('http')
+  , db = require('../app').db;
 
 var test = appFile.test;
  console.log(test);
@@ -111,6 +112,8 @@ function createRoom(req, res){
   
 }
 
+
+
 function addVideoToRoom(req, res){
   var roomID = req.param('id');
   var videoURL = req.body.videoURL;
@@ -178,7 +181,34 @@ function searchVideo(req, res){
 }
 
 //function 
+function getRoomData(req, res){
+  var roomID = req.param('id');
+  var sql = 'SELECT * from rooms WHERE room_id = ' + roomID;
+  var test;
+  console.log('hi:'); 
 
+/*
+  db.each(sql,  function(err, r) {
+    console.log(r.room_id);
+      });
+*/
+
+  var returnVal = {}
+
+  db.serialize(function() {
+    db.each(sql, function(err, row) {
+        console.log('in here');
+        console.log(row.room_id + ": " + row.messages);
+        returnVal['roomName'] = row.roomName;
+        returnVal['playlist'] = row.playlist;
+        returnVal['currentVideo'] = row.playlist[row.playlist.size-1];
+        returnVal['chatID'] = row.messages;
+        res.json(returnVal);
+    ;
+  });
+  db.close();
+  
+}
 
 
 //resultOnEnd(body) - body is the json returned
@@ -224,6 +254,7 @@ app.get('/login', login);
 app.get('/playlists', playlist);
 app.get('/playlist/:id', getPlaylistData);
 app.get('/search/:query', searchVideo);
+app.get('/room/:id', getRoomData);
 app.get('/room/:id/video/add', addVideoToRoom);
 
 app.get('/auth/google'
